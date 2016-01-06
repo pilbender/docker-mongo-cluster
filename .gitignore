@@ -1,0 +1,5 @@
+*.DS_Store
+.idea
+Dockerfile.dev
+Dockerfile.bak
+VERSION.dev
