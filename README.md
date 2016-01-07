@@ -2,7 +2,7 @@ docker build -t="raescott/mongodb" mongodb
 docker build -t="raescott/mongos" mongos
 
 ====
-### Create Replica Sets
+## Create Replica Sets
 
 docker run \
   -P --name rs1_srv1 \
@@ -23,7 +23,7 @@ docker run \
   --noprealloc --smallfiles
   
 ====
-#### Needed only for sharding.
+### Needed only for sharding.
 
 docker run \
   -P --name rs2_srv1 \
@@ -44,10 +44,13 @@ docker run \
   --noprealloc --smallfiles
   
 ====
-### Initialize Replica Sets
+## Initialize Replica Sets
 docker inspect rs1_srv1
 docker inspect rs1_srv2
+docker inspect rs1_srv3
 
+To see the port mappings:
+docker ps 
 mongo --port <port>
 
 ### MongoDB Shell (on rs1_srv1)
