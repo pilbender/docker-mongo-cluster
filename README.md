@@ -1,24 +1,24 @@
-docker build -t="raescott/mongodb" mongodb
-docker build -t="raescott/mongos" mongos
+docker build -t="raescott/mongodb:1.0.0" mongodb
+docker build -t="raescott/mongos:1.0.0" mongos
 
 ====
 ## Create Replica Sets
 
 docker run \
   -P --name rs1_srv1 \
-  -d raescott/mongodb \
+  -d raescott/mongodb:1.0.0 \
   --replSet rs1 \
   --noprealloc --smallfiles
 
 docker run \
   -P --name rs1_srv2 \
-  -d raescott/mongodb \
+  -d raescott/mongodb:1.0.0 \
   --replSet rs1 \
   --noprealloc --smallfiles
 
 docker run \
   -P --name rs1_srv3 \
-  -d raescott/mongodb \
+  -d raescott/mongodb:1.0.0 \
   --replSet rs1 \
   --noprealloc --smallfiles
   
