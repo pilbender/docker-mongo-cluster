@@ -1,7 +1,6 @@
-dodocker build -t="raescott/mongodb:1.0.0" mongodb
+docker build -t="raescott/mongodb:1.0.0" mongodb
 docker build -t="raescott/mongos:1.0.0" mongos
 
-====
 ## Create Replica Sets
 
 docker run \
@@ -36,6 +35,7 @@ rs.initiate()
 
 #### Rename the primary (so 172.17.0.2 can be used from the outside)
 This step is imperative as this will be refrenced by the slaves. Slaves will not be able to find a container name.
+
 cfg = rs.conf()
 cfg.members[0].host = "<IP_of_rs1_srv1>:27017"
 rs.reconfig(cfg)
@@ -48,8 +48,6 @@ rs.status()
 #### Verify each Slave node by logging into them
 Required in order to do queries on the slaves:
 rs.slaveOk();
-
-====
 
 ### Needed only for sharding.
 
