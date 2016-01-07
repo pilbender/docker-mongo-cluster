@@ -22,7 +22,34 @@ docker run \
   --replSet rs1 \
   --noprealloc --smallfiles
   
+## Initialize Replica Sets
+docker inspect rs1_srv1
+docker inspect rs1_srv2
+docker inspect rs1_srv3
+
+To see the port mappings:
+docker ps 
+mongo --port <port>
+
+### MongoDB Shell (on rs1_srv1)
+
+rs.initiate()
+rs.add("<IP_of_rs1_srv2>:27017")
+rs.add("<IP_of_rs1_srv3>:27017")
+rs.status()
+
+#### Rename the primary (so 172.17.0.2 can be used from the outside)
+cfg = rs.conf()
+cfg.members[0].host = "<IP_of_rs1_srv1>:27017"
+rs.reconfig(cfg)
+rs.status()
+
+#### Verify each Slave node by logging into them
+Required in order to do queries on the slaves:
+rs.slaveOk();
+  
 ====
+
 ### Needed only for sharding.
 
 docker run \
@@ -42,23 +69,6 @@ docker run \
   -d raescott/mongodb \
   --replSet rs2 \
   --noprealloc --smallfiles
-  
-====
-## Initialize Replica Sets
-docker inspect rs1_srv1
-docker inspect rs1_srv2
-docker inspect rs1_srv3
-
-To see the port mappings:
-docker ps 
-mongo --port <port>
-
-### MongoDB Shell (on rs1_srv1)
-
-rs.initiate()
-rs.add("<IP_of_rs1_srv2>:27017")
-rs.add("<IP_of_rs1_srv3>:27017")
-rs.status()
 
 ### Create a Router
 docker run \
