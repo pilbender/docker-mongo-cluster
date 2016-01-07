@@ -5,19 +5,19 @@ docker build -t="raescott/mongos" mongos
 ### Create Replica Sets
 
 docker run \
-  -P -name rs1_srv1 \
+  -P --name rs1_srv1 \
   -d raescott/mongodb \
   --replSet rs1 \
   --noprealloc --smallfiles
 
 docker run \
-  -P -name rs1_srv2 \
+  -P --name rs1_srv2 \
   -d raescott/mongodb \
   --replSet rs1 \
   --noprealloc --smallfiles
 
 docker run \
-  -P -name rs1_srv3 \
+  -P --name rs1_srv3 \
   -d raescott/mongodb \
   --replSet rs1 \
   --noprealloc --smallfiles
@@ -26,19 +26,19 @@ docker run \
 #### Needed only for sharding.
 
 docker run \
-  -P -name rs2_srv1 \
+  -P --name rs2_srv1 \
   -d raescott/mongodb \
   --replSet rs2 \
   --noprealloc --smallfiles
 
 docker run \
-  -P -name rs2_srv2 \
+  -P --name rs2_srv2 \
   -d raescott/mongodb \
   --replSet rs2 \
   --noprealloc --smallfiles
 
 docker run \
-  -P -name rs2_srv3 \
+  -P --name rs2_srv3 \
   -d raescott/mongodb \
   --replSet rs2 \
   --noprealloc --smallfiles
@@ -59,7 +59,7 @@ rs.status()
 
 ### Create a Router
 docker run \
-  -P -name mongos \
+  -P --name mongos \
   -d raescott/mongos \
   --port 27017 \
   --configdb \
