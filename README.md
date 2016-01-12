@@ -22,6 +22,11 @@ docker run \
   --replSet rs1 \
   --noprealloc --smallfiles
   
+### To restart existing images
+docker start rs1_srv1
+docker start rs1_srv2
+docker start rs1_srv3
+  
 ## Initialize Replica Sets
 docker inspect rs1_srv1
 docker inspect rs1_srv2
@@ -32,6 +37,10 @@ docker ps
 mongo --port <port>
 
 ### MongoDB Shell (on rs1_srv1)
+
+mongo --host 172.17.0.2
+mongo --host 172.17.0.3
+mongo --host 172.17.0.4
 
 rs.initiate()
 rs.add("<IP_of_rs1_srv2>:27017")
