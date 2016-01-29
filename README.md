@@ -63,13 +63,13 @@ This step is imperative as this will be refrenced by the slaves. Slaves will not
 
 <pre>
 cfg = rs.conf()
-cfg.members[0].host = "<IP_of_rs1_srv1>:27017"
+cfg.members[0].host = "&lt;IP_of_rs1_srv1&gt;:27017"
 rs.reconfig(cfg)
 rs.status()
 
 ### And add the slaves to replication
-rs.add("<IP_of_rs1_srv2>:27017")
-rs.add("<IP_of_rs1_srv3>:27017")
+rs.add("&lt;IP_of_rs1_srv2&gt;:27017")
+rs.add("&lt;IP_of_rs1_srv3&gt;:27017")
 rs.status()
 </pre>
 Verify each Slave node by logging into them, see "Mongo Shell" above.
@@ -108,7 +108,7 @@ docker run \
   -d raescott/mongos \
   --port 27017 \
   --configdb \
-    <IP_of_container_cfg1>:27017, \
-    <IP_of_container_cfg2>:27017, \
-    <IP_of_container_cfg3>:27017
+    &lt;IP_of_container_cfg1&gt;:27017, \
+    &lt;IP_of_container_cfg2&gt;:27017, \
+    &lt;IP_of_container_cfg3&gt;:27017
 </pre>
