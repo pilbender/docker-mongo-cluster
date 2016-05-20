@@ -6,24 +6,32 @@ docker build -t="raescott/mongos:1.0.0" mongos
 # Create Replica Sets
 
 ## Start images for the first time (see below to restart)
+Remove the --auth and --keyFile lines if you do not want an authenticated Mongo cluster.  The mongodb-keyfile is not 
+used in that case.
 <pre>
 docker run \
   -P --name rs1_srv1 \
   -d raescott/mongodb:1.0.0 \
   --replSet rs1 \
-  --noprealloc --smallfiles
+  --noprealloc --smallfiles \
+  --auth \
+  --keyFile /opt/mongodb-keyfile
 
 docker run \
   -P --name rs1_srv2 \
   -d raescott/mongodb:1.0.0 \
   --replSet rs1 \
-  --noprealloc --smallfiles
+  --noprealloc --smallfiles \
+  --auth \
+  --keyFile /opt/mongodb-keyfile
 
 docker run \
   -P --name rs1_srv3 \
   -d raescott/mongodb:1.0.0 \
   --replSet rs1 \
-  --noprealloc --smallfiles
+  --noprealloc --smallfiles \
+  --auth \
+  --keyFile /opt/mongodb-keyfile
 </pre>
   
 ## To restart existing images
@@ -78,6 +86,31 @@ Verify each Slave node by logging into them, see "Mongo Shell" above.
 <pre>
 rs.slaveOk();
 </pre>
+
+### Adding Authentication to Docker Mongo Clusters
+Things are a bit more complicated for this and the ordering of when things are done is important because things won't
+work properly because the permssions are not there.  The goal is to add Authentication and Authorization to a "root"
+user and a user specifically created to access a particular data store.
+
+openssl rand -base64 741 > mongodb-keyfile
+rs.initiate();
+db.createUser( { user: "root", pwd: "mySuperSecurePassword", roles: [ { role: "root", db: "admin" }, ] })
+db.auth('root','mySuperSecurePassword');
+cfg = rs.conf()
+cfg.members[0].host = "172.17.0.2:27017"
+rs.reconfig(cfg)
+rs.status()
+rs.add("172.17.0.3:27017")
+rs.add("172.17.0.4:27017")
+rs.status()
+db.createUser({user: "myUser", pwd: "myPassword", roles: [ { role: "dbOwner", db: "myDb" } ] });
+mongo --host 172.17.0.2 -u myUser -p myPassword --authenticationDatabase admin myDb
+mongo --host 172.17.0.3 -u myUser -p myPassword --authenticationDatabase admin myDb
+mongo --host 172.17.0.4 -u myUser -p myPassword --authenticationDatabase admin myDb
+or
+mongo --host 172.17.0.4
+use admin;
+db.auth('myUser','myPassword');
 
 ### Needed only for sharding. (Note: We have not tested this)
 

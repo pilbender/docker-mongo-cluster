@@ -6,6 +6,11 @@
 
 FROM ubuntu:15.10
 MAINTAINER Richard Scott Smith <pilbender@gmail.com>
+
+# Copy the keyfile over for authenticated Mongo Docker Clustering
+COPY mongodb-keyfile /opt/mongodb-keyfile
+RUN chmod 600 /opt/mongodb-keyfile
+
 # Add 10gen official apt source to the sources list
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
