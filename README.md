@@ -74,8 +74,10 @@ cfg = rs.conf()
 cfg.members[0].host = "&lt;IP_of_rs1_srv1&gt;:27017"
 rs.reconfig(cfg)
 rs.status()
+</pre>
 
 ### And add the slaves to replication
+<pre>
 rs.add("&lt;IP_of_rs1_srv2&gt;:27017")
 rs.add("&lt;IP_of_rs1_srv3&gt;:27017")
 rs.status()
@@ -92,6 +94,7 @@ Things are a bit more complicated for this and the ordering of when things are d
 work properly because the permssions are not there.  The goal is to add Authentication and Authorization to a "root"
 user and a user specifically created to access a particular data store.
 
+<pre>
 openssl rand -base64 741 > mongodb-keyfile
 rs.initiate();
 db.createUser( { user: "root", pwd: "mySuperSecurePassword", roles: [ { role: "root", db: "admin" }, ] })
@@ -111,6 +114,7 @@ or
 mongo --host 172.17.0.4
 use admin;
 db.auth('myUser','myPassword');
+</pre>
 
 ### Needed only for sharding. (Note: We have not tested this)
 
