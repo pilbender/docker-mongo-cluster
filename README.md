@@ -92,11 +92,19 @@ rs.slaveOk();
 ### Adding Authentication to Docker Mongo Clusters
 Things are a bit more complicated for this and the ordering of when things are done is important because things won't
 work properly because the permssions are not there.  The goal is to add Authentication and Authorization to a "root"
-user and a user specifically created to access a particular data store.
+user and a user specifically created to access a particular data store.  You must go into the Docker container and use 
+the mongo client locally!
 
 <pre>
-openssl rand -base64 741 > mongodb-keyfile
+openssl rand -base64 741 > mongodb/mongodb-keyfile
+docker ps (to get the container ID)
+docker exec -it f5e08eba79aa bash
+mongo
+</pre>
+Now that we're inside the local container, we can execute these commands to set up authenticated clustering.
+<pre>
 rs.initiate();
+use admin;
 db.createUser( { user: "root", pwd: "mySuperSecurePassword", roles: [ { role: "root", db: "admin" }, ] })
 db.auth('root','mySuperSecurePassword');
 cfg = rs.conf()
