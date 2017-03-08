@@ -96,8 +96,11 @@ user and a user specifically created to access a particular data store.
 
 <pre>
 openssl rand -base64 741 > mongodb-keyfile
+docker exec -it rs1_srv1 bash
+mongo
 rs.initiate();
-db.createUser( { user: "root", pwd: "mySuperSecurePassword", roles: [ { role: "root", db: "admin" }, ] })
+use admin
+db.createUser( { user: "root", pwd: "mySuperSecurePassword", roles: [ { role: "root", db: "admin" } ] })
 db.auth('root','mySuperSecurePassword');
 cfg = rs.conf()
 cfg.members[0].host = "172.17.0.2:27017"
