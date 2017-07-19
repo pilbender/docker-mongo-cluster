@@ -1,4 +1,4 @@
-FROM raescott/mongodb:1.0.0
+FROM raescott/mongodb:2.0.0
 
 EXPOSE 27017
 ENTRYPOINT ["usr/bin/mongos"]
