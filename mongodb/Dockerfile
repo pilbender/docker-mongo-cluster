@@ -4,7 +4,7 @@
 # IMAGE NAME: docker-mongo-cluster
 # TAG: 1.0.0
 
-FROM ubuntu:15.10
+FROM ubuntu:16.04
 MAINTAINER Richard Scott Smith <pilbender@gmail.com>
 
 # Copy the keyfile over for authenticated Mongo Docker Clustering
