@@ -1,6 +1,6 @@
 <pre>
 docker build -t="raescott/mongodb:3.0.6" mongodb
-docker build -t="raescott/mongos:1.0.0" mongos
+docker build -t="raescott/mongos:3.0.6" mongos
 </pre>
 
 # Create Replica Sets
