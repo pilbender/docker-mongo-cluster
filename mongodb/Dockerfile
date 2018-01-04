@@ -4,7 +4,7 @@
 # IMAGE NAME: docker-mongo-cluster
 # TAG: 1.0.0
 
-FROM ubuntu:15.10
+FROM ubuntu:16.04
 MAINTAINER Richard Scott Smith <pilbender@gmail.com>
 
 # Copy the keyfile over for authenticated Mongo Docker Clustering
@@ -17,7 +17,7 @@ RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiver
 
 # Install MongoDB
 RUN apt-get update
-RUN apt-get install -y mongodb-org=3.2.3 mongodb-org-server=3.2.3 mongodb-org-shell=3.2.3 mongodb-org-mongos=3.2.3 mongodb-org-tools=3.2.3
+RUN apt-get install -y --allow-unauthenticated mongodb-org=3.2.3 mongodb-org-server=3.2.3 mongodb-org-shell=3.2.3 mongodb-org-mongos=3.2.3 mongodb-org-tools=3.2.3
 
 # Create the MongoDB data directory
 RUN mkdir -p /data/db
