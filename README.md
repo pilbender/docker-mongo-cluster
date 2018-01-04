@@ -1,5 +1,8 @@
 <pre>
 docker build -t="raescott/mongodb:1.0.0" mongodb
+</pre>
+Note: This mongos build step can be skipped if not using a router.
+<pre>
 docker build -t="raescott/mongos:1.0.0" mongos
 </pre>
 

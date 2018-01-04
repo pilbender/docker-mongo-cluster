@@ -1,0 +1,38 @@
+#docker run \
+#  -P --name rs1_srv1 \
+#  -d raescott/mongodb:1.0.0 \
+#  --replSet rs1 \
+#  --noprealloc --smallfiles \
+#  --auth \
+#  --keyFile /opt/mongodb-keyfile
+#
+#docker run \
+#  -P --name rs1_srv2 \
+#  -d raescott/mongodb:1.0.0 \
+#  --replSet rs1 \
+#  --noprealloc --smallfiles \
+#  --auth \
+#  --keyFile /opt/mongodb-keyfile
+#
+#docker run \
+#  -P --name rs1_srv3 \
+#  -d raescott/mongodb:1.0.0 \
+#  --replSet rs1 \
+#  --noprealloc --smallfiles \
+#  --auth \
+#  --keyFile /opt/mongodb-keyfile
+
+rs1_srv1:
+  image: raescott/mongodb:1.0.0
+  container_name: rs1_srv1
+  command: --replSet rs1 --noprealloc --smallfiles --auth --keyFile /opt/mongodb-keyfile
+
+rs1_srv2:
+  image: raescott/mongodb:1.0.0
+  container_name: rs1_srv2
+  command: --replSet rs1 --noprealloc --smallfiles --auth --keyFile /opt/mongodb-keyfile
+
+rs1_srv3:
+  image: raescott/mongodb:1.0.0
+  container_name: rs1_srv3
+  command: --replSet rs1 --noprealloc --smallfiles --auth --keyFile /opt/mongodb-keyfile
