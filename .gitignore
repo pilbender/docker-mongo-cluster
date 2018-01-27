@@ -1,5 +1,12 @@
+# Mac files
 *.DS_Store
+
+# IntelliJ files
 .idea
+
+# Docker backup files
 Dockerfile.dev
 Dockerfile.bak
-VERSION.dev
+
+# vim undo file
+*.un~
