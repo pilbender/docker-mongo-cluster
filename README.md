@@ -1,9 +1,9 @@
 <pre>
-docker build -t="raescott/mongodb:1.0.0" mongodb
+docker build -t="raescott/mongodb:3.4.6" mongodb
 </pre>
 Note: This mongos build step can be skipped if not using a router.
 <pre>
-docker build -t="raescott/mongos:1.0.0" mongos
+docker build -t="raescott/mongos:3.4.6" mongos
 </pre>
 
 # Create Replica Sets
@@ -14,7 +14,7 @@ used in that case.
 <pre>
 docker run \
   -P --name rs1_srv1 \
-  -d raescott/mongodb:1.0.0 \
+  -d raescott/mongodb:3.4.6 \
   --replSet rs1 \
   --noprealloc --smallfiles \
   --auth \
@@ -22,7 +22,7 @@ docker run \
 
 docker run \
   -P --name rs1_srv2 \
-  -d raescott/mongodb:1.0.0 \
+  -d raescott/mongodb:3.4.6 \
   --replSet rs1 \
   --noprealloc --smallfiles \
   --auth \
@@ -30,7 +30,7 @@ docker run \
 
 docker run \
   -P --name rs1_srv3 \
-  -d raescott/mongodb:1.0.0 \
+  -d raescott/mongodb:3.4.6 \
   --replSet rs1 \
   --noprealloc --smallfiles \
   --auth \
